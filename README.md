@@ -1,5 +1,12 @@
 # 🧱 SP-BREAK — SMASH EVERYTHING! 🎮
 
+[![▶️ PLAY NOW](https://img.shields.io/badge/▶️_PLAY_NOW-4caf50?style=for-the-badge&logo=github&logoColor=white)](https://niveknow.github.io/SP-break/)
+[![Star ⭐](https://img.shields.io/badge/⭐_Star_This_Repo-333?style=for-the-badge)](https://github.com/niveknow/SP-break)
+
+**👉 [CLICK HERE TO PLAY!](https://niveknow.github.io/SP-break/)** 👈
+
+---
+
 ## HEY STERLING! 👋
 
 This is YOUR game. You get to smash sushi, candy, and ice cream with YOUR FACE! 🏓💥
