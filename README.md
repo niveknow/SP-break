@@ -10,15 +10,15 @@ This is YOUR game. You get to smash sushi, candy, and ice cream with YOUR FACE! 
 
 ## 🎯 WHAT IS THIS?
 
-It's Breakout — but WAY cooler. Instead of a boring white ball, **YOUR FACE** bounces around the screen and smashes delicious food bricks!
+It's Breakout — but WAY cooler. Instead of a boring white ball, **YOUR FACE** bounces around the screen and smashes BIG FOOD EMOJIS! No boring boxes — just pure food. 🍣🍬🍨
 
-### 🧱 The Bricks You Smash:
+### 🍣🍬🍨 The Foods You Smash:
 
-| Brick | What It Is | Hits To Break | Sound |
-|-------|-----------|:-------------:|:-----:|
-| 🍣 | **Sushi** — soft and squishy | 1 hit | *pop!* |
-| 🍬 | **Candy** — hard candy shell | 2 hits | *sparkle sparkle!* |
-| 🍨 | **Ice Cream** — frozen solid | 3 hits | *THUD!* |
+| Food | What It Is | Hits | Sound | Damage Look |
+|------|-----------|:----:|:-----:|:-----------:|
+| 🍣 | **Sushi** — soft & squishy | 1 | *pop!* | Gone instantly! |
+| 🍬 | **Candy** — hard shell | 2 | *sparkle!* | Gets a CRACK line |
+| 🍨 | **Ice Cream** — frozen solid | 3 | *THUD!* | Crack X when almost broken |
 
 ### ❤️ Lives
 You get **3 hearts**. Drop the ball and lose one. Lose 'em all and it's **GAME OVER!**
