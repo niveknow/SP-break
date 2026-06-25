@@ -202,7 +202,7 @@ function draw() {
 
         ctx.font = '18px "Segoe UI", Arial, sans-serif';
         ctx.fillStyle = '#aaa';
-        ctx.fillText('Smash sushi, candy & ice cream bricks!', CANVAS_W / 2, 280);
+        ctx.fillText('Smash big food emojis with Sterling\'s face! 🍣🍬🍨', CANVAS_W / 2, 280);
 
         ctx.fillStyle = '#ff4081';
         ctx.font = '20px "Segoe UI", Arial, sans-serif';

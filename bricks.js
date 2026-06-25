@@ -1,19 +1,18 @@
 /**
- * Bricks — the blocks you smash!
+ * Bricks — BIG FOOD EMOJIS, no boring boxes! 🍣🍬🍨
  *
- * We have 3 types of bricks, each matching our food themes:
- *   🍣 SUSHI brick — orange, 1 hit to break
- *   🍬 CANDY brick — pink, 2 hits to break
- *   🍨 ICE CREAM brick — light brown, 3 hits to break
+ * Instead of colored rectangles with tiny emojis inside, EVERY brick IS
+ * the food itself. Smash 'em with Sterling's face!
  *
- * Tougher bricks change color as they take damage, so you can see
- * how close they are to breaking!
+ *    🍣 SUSHI brick  — 1 hit. Instant pop! Gone.
+ *    🍬 CANDY brick  — 2 hits. Cracks on first hit.
+ *    🍨 ICE CREAM     — 3 hits. Gets more cracked each time.
  */
 
 const BRICK_TYPES = {
-    SUSHI:      { hp: 1, color: '#ff8a65', name: 'SUSHI' },
-    CANDY:      { hp: 2, color: '#ff4081', name: 'CANDY' },
-    ICE_CREAM:  { hp: 3, color: '#ce93d8', name: 'ICE CREAM' }
+    SUSHI:      { hp: 1, color: '#ff8a65', name: 'SUSHI',   emoji: '🍣' },
+    CANDY:      { hp: 2, color: '#ff4081', name: 'CANDY',   emoji: '🍬' },
+    ICE_CREAM:  { hp: 3, color: '#ce93d8', name: 'ICE CREAM', emoji: '🍨' }
 };
 
 class BrickManager {
@@ -21,21 +20,20 @@ class BrickManager {
         this.bricks = [];
         this.rows = 6;
         this.cols = 8;
-        this.brickW = 52;
-        this.brickH = 20;
-        this.padding = 4;
+        this.brickW = 54;      // Slightly wider for emoji room
+        this.brickH = 26;      // Taller so emojis aren't squished
+        this.padding = 3;
         this.offsetTop = 60;
         this.offsetLeft = (CANVAS_W - (this.cols * (this.brickW + this.padding))) / 2;
     }
 
-    /** Build a grid of bricks */
+    /** Build a grid of tasty bricks */
     build(level) {
         this.bricks = [];
         const types = [BRICK_TYPES.SUSHI, BRICK_TYPES.CANDY, BRICK_TYPES.ICE_CREAM];
 
         for (let row = 0; row < this.rows; row++) {
             for (let col = 0; col < this.cols; col++) {
-                // Higher rows = tougher bricks
                 const typeIdx = Math.min(Math.floor(row / 2), 2);
                 const type = types[typeIdx];
 
@@ -45,50 +43,65 @@ class BrickManager {
                     w: this.brickW,
                     h: this.brickH,
                     type: type,
-                    hp: type.hp,        // Current HP
-                    maxHp: type.hp,      // Max HP (for color fading)
-                    hit: false,          // Destroyed?
-                    points: (type.hp) * 10  // More points for tougher bricks
+                    hp: type.hp,
+                    maxHp: type.hp,
+                    hit: false,
+                    points: type.hp * 10
                 });
             }
         }
     }
 
-    /** Draw all bricks */
+    /** Draw all bricks as big food emojis! */
     draw(ctx) {
         for (const b of this.bricks) {
             if (b.hit) continue;
 
-            // Color fades as brick takes damage
-            const health = b.hp / b.maxHp;
-            if (health > 0.6) {
-                ctx.fillStyle = b.type.color;
-            } else if (health > 0.3) {
-                // Mid-damage — desaturated
-                ctx.fillStyle = b.type === BRICK_TYPES.ICE_CREAM ? '#b39ddb' :
-                                b.type === BRICK_TYPES.CANDY ? '#f48fb1' : '#ffab91';
-            } else {
-                // Almost broken — pale
-                ctx.fillStyle = b.type === BRICK_TYPES.ICE_CREAM ? '#d1c4e9' :
-                                b.type === BRICK_TYPES.CANDY ? '#f8bbd0' : '#ffccbc';
-            }
+            const cx = b.x + b.w / 2;
+            const cy = b.y + b.h / 2;
 
-            ctx.beginPath();
-            ctx.roundRect(b.x + 1, b.y + 1, b.w - 2, b.h - 2, 3);
-            ctx.fill();
+            // --- Glow underneath (matches food color) ---
+            ctx.shadowColor = b.type.color;
+            ctx.shadowBlur = 8;
 
-            // Food icon label
-            const icons = { 'SUSHI': '🍣', 'CANDY': '🍬', 'ICE CREAM': '🍨' };
-            ctx.font = '10px Arial';
+            // --- BIG EMOJI — this IS the brick ---
+            ctx.font = '22px Arial';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText(icons[b.type.name] || '', b.x + b.w / 2, b.y + b.h / 2);
+            ctx.fillText(b.type.emoji, cx, cy);
 
-            // HP indicator for multi-hit bricks
-            if (b.maxHp > 1) {
-                ctx.fillStyle = 'rgba(255,255,255,0.5)';
-                ctx.font = '7px Arial';
-                ctx.fillText(b.hp > 0 ? '❤️'.repeat(b.hp) : '', b.x + b.w / 2, b.y + b.h - 4);
+            ctx.shadowBlur = 0;
+
+            // --- Damage overlays for multi-hit bricks ---
+            if (b.maxHp > 1 && b.hp < b.maxHp) {
+                const damage = 1 - (b.hp / b.maxHp);
+
+                // Crack lines (white, gets more visible with damage)
+                ctx.save();
+                ctx.strokeStyle = `rgba(255, 255, 255, ${damage * 0.7})`;
+                ctx.lineWidth = 2;
+
+                // First crack — diagonal top-left to bottom-right
+                ctx.beginPath();
+                ctx.moveTo(b.x + b.w * 0.2, b.y + b.h * 0.15);
+                ctx.lineTo(b.x + b.w * 0.8, b.y + b.h * 0.85);
+                ctx.stroke();
+
+                // Second crack (show only when REALLY damaged — HP=1 on a 3-HP brick)
+                if (b.hp <= 1 && b.maxHp > 2) {
+                    ctx.strokeStyle = `rgba(255, 200, 200, ${damage * 0.8})`;
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(b.x + b.w * 0.8, b.y + b.h * 0.15);
+                    ctx.lineTo(b.x + b.w * 0.2, b.y + b.h * 0.85);
+                    ctx.stroke();
+                }
+
+                ctx.restore();
+
+                // Slight white flash overlay
+                ctx.fillStyle = `rgba(255, 255, 255, ${damage * 0.15})`;
+                ctx.fillRect(b.x, b.y, b.w, b.h);
             }
         }
     }
