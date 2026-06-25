@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>SP-Break</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: none;
+        }
+        .game-wrapper {
+            background: #1e1e1e;
+            padding: 20px 20px 15px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(255, 64, 129, 0.2);
+            text-align: center;
+        }
+        h1 {
+            color: #ff4081;
+            font-size: 22px;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+        canvas {
+            border: 2px solid #333;
+            border-radius: 4px;
+            display: block;
+            margin: 0 auto;
+            cursor: none;
+            touch-action: none;
+        }
+        .controls-hint {
+            color: #666;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-wrapper">
+        <h1>🧱 SP-BREAK</h1>
+        <canvas id="gameCanvas" width="480" height="640"></canvas>
+        <div class="controls-hint">
+            Mouse or finger to move paddle
+        </div>
+    </div>
+    <script src="ball.js"></script>
+    <script src="paddle.js"></script>
+    <script src="bricks.js"></script>
+    <script src="score.js"></script>
+    <script src="audio.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
