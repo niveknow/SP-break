@@ -48,7 +48,7 @@ Your best score saves right in your browser. Can you beat it? 😤
 
 ## 🕹️ MADE BY
 
-**Tom Nguyen** made this game **for Sterling** <br>
+**Daddy** made this game **for Sterling** <br>
 Built with JavaScript on a Canvas — no fancy game engine, just pure code! 🤓
 
 ---
